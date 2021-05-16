@@ -8,7 +8,17 @@ import javax.inject.Inject
 
 class NameUseCase @Inject constructor(private val dbRepository: DBRepository) {
 
-    fun execute(): Flow<MyResult<List<Name>>> {
-        return dbRepository.getNames()
+    sealed class Result {
+        data class Success(val data: List<Name>) : Result()
+        data class Error(val e: Throwable) : Result()
+    }
+
+
+    suspend fun execute(): Result {
+        return try {
+            Result.Success(dbRepository.getNames())
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
     }
 }

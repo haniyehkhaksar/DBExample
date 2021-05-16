@@ -12,9 +12,8 @@ import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class DBRepository @Inject constructor(private val nameDao: NameDao): IDBRepository {
-    override fun getNames(): Flow<MyResult<List<Name>>> {
-        return nameDao.getAll().map { MyResult.Success(it.map { item -> item.toDomainModel() }) }
-            .catch { MyResult.Error<Throwable>(it) }
+    override suspend fun getNames(): List<Name> {
+        return nameDao.getAll().map { it.toDomainModel() }
     }
 
     override suspend fun insertName(name: String) {

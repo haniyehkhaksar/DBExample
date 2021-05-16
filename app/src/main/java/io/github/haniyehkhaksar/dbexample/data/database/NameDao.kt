@@ -9,7 +9,7 @@ interface NameDao {
 
     @Transaction
     @Query("SELECT * FROM names")
-    fun getAll(): Flow<List<NameEntity>>
+    suspend fun getAll(): List<NameEntity>
 
     @Transaction
     @Insert(onConflict = OnConflictStrategy.REPLACE)
