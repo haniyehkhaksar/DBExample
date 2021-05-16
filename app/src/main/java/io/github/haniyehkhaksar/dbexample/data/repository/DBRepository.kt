@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class DBRepository @Inject constructor(private val nameDao: NameDao): IDBRepository {
     override fun getNames(): Flow<MyResult<List<Name>>> {
-        return nameDao.getAll().map { MyResult.Success(it.map { item -> item.toDomainModel() }) }
+        return nameDao.getDistinctAll().map { MyResult.Success(it.map { item -> item.toDomainModel() }) }
             .catch { MyResult.Error<Throwable>(it) }
     }
 
