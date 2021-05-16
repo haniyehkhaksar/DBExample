@@ -22,6 +22,7 @@
             android:maxLines="1"
             android:singleLine="true"
             android:lines="1"
+            android:hint="@string/entre_name"
             android:layout_marginEnd="@dimen/half_activity_padding"
             android:text="@={viewModel.newName}"
             app:layout_constraintEnd_toStartOf="@id/btn_add"
