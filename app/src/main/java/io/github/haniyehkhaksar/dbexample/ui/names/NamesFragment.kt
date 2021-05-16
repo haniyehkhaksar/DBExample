@@ -25,13 +25,9 @@ class NamesFragment : DaggerFragment() {
 
     private val adapter = NamesAdapter()
 
-    private val namesObserver = Observer<MyResult<List<Name>>> {
-        it.data?.let { list ->
-            adapter.submitList(list)
-        }
-        it.error?.let {
-            Toast.makeText(activity, "Error-data", Toast.LENGTH_LONG).show()
-        }
+    private val namesObserver = Observer<List<Name>> {
+        adapter.submitList(it)
+        Toast.makeText(activity, "submit data:${it.size}", Toast.LENGTH_LONG).show()
     }
 
     private val messageObserver = Observer<String> {
